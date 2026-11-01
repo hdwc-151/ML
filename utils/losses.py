@@ -46,3 +46,29 @@ class BinaryCrossEntropy(Loss):
         p = np.clip(y_pred, self.eps, 1.0 - self.eps)
         m = y_true.shape[0]
         return ((p - y_true) / (p * (1.0 - p))) / m
+
+class CategoricalCrossEntropy(Loss):
+    """
+    Categorical Cross-Entropy Loss cho phân loại đa lớp.
+    L = - (1 / N) * sum(y_true * log(y_pred))
+    """
+    def __init__(self, eps: float = 1e-15):
+        self.eps = eps
+
+    def forward(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
+        y_true, y_pred = np.asarray(y_true), np.asarray(y_pred)
+        p = np.clip(y_pred, self.eps, 1.0 - self.eps)
+        # Tính tổng loss trên toàn bộ ma trận (N mẫu x K lớp)
+        return float(-np.sum(y_true * np.log(p)) / y_true.shape[0])
+        
+    def backward(self, y_true: np.ndarray, y_pred: np.ndarray) -> np.ndarray:
+        """
+        Lưu ý: Để tối ưu tính toán số học, gradient dL/dz (đạo hàm theo pre-activation z) 
+        của [Softmax + CCE] được tính gộp là (y_pred - y_true) / N.
+        Ở đây ta chỉ trả về đạo hàm rời của CCE, nhưng trong thuật toán sẽ dùng công thức gộp.
+        """
+        y_true, y_pred = np.asarray(y_true), np.asarray(y_pred)
+        p = np.clip(y_pred, self.eps, 1.0 - self.eps)
+        N = y_true.shape[0]
+        return - (y_true / p) / N
+

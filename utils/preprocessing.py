@@ -48,3 +48,25 @@ class PolynomialFeatures:
 
     def fit_transform(self, X: np.ndarray) -> np.ndarray:
         return self.transform(X)
+
+class OneHotEncoder:
+    """Mã hóa nhãn phân loại (số nguyên) thành ma trận One-Hot."""
+    def __init__(self):
+        self.classes_ = None
+
+    def fit(self, y: np.ndarray):
+        self.classes_ = np.unique(y)
+        return self
+
+    def transform(self, y: np.ndarray) -> np.ndarray:
+        y = np.asarray(y).flatten()
+        # Ánh xạ từng nhãn vào chỉ số cột tương ứng
+        class_indices = np.searchsorted(self.classes_, y)
+        n_samples = len(y)
+        n_classes = len(self.classes_)
+        one_hot = np.zeros((n_samples, n_classes))
+        one_hot[np.arange(n_samples), class_indices] = 1.0
+        return one_hot
+
+    def fit_transform(self, y: np.ndarray) -> np.ndarray:
+        return self.fit(y).transform(y)
