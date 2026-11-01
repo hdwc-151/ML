@@ -1,0 +1,12 @@
+pyproject.toml
+ml_from_scratch.egg-info/PKG-INFO
+ml_from_scratch.egg-info/SOURCES.txt
+ml_from_scratch.egg-info/dependency_links.txt
+ml_from_scratch.egg-info/requires.txt
+ml_from_scratch.egg-info/top_level.txt
+utils/__init__.py
+utils/activations.py
+utils/distances.py
+utils/losses.py
+utils/metrics.py
+utils/preprocessing.py
