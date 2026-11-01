@@ -1,0 +1,46 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Phần 0: Nền tảng toán học & Tiện ích"
+    chapters:
+      - file: notebooks/00_foundations/01_linear_algebra_calculus
+      - file: notebooks/00_foundations/02_probability_mle_map
+
+  - caption: "Phần 1: Học có giám sát - Hồi quy (Regression)"
+    chapters:
+      - file: notebooks/01_regression/01_linear_regression_normal_equation
+      - file: notebooks/01_regression/02_linear_regression_gradient_descent
+      - file: notebooks/01_regression/03_polynomial_regression
+      - file: notebooks/01_regression/04_ridge_lasso_elasticnet
+
+  - caption: "Phần 2: Học có giám sát - Phân loại (Classification)"
+    chapters:
+      - file: notebooks/02_classification/01_perceptron_learning_algorithm
+      - file: notebooks/02_classification/02_logistic_regression
+      - file: notebooks/02_classification/03_softmax_multiclass
+      - file: notebooks/02_classification/04_support_vector_machines
+
+  - caption: "Phần 3: Thuật toán thực thể & Xác suất (Instance & Bayes)"
+    chapters:
+      - file: notebooks/03_instance_bayes/01_k_nearest_neighbors
+      - file: notebooks/03_instance_bayes/02_naive_bayes_gaussian_multinomial
+
+  - caption: "Phần 4: Cây quyết định & Học kết hợp (Ensembles)"
+    chapters:
+      - file: notebooks/04_trees_ensembles/01_decision_trees
+      - file: notebooks/04_trees_ensembles/02_random_forest
+      - file: notebooks/04_trees_ensembles/03_adaboost_gradient_boosting
+
+  - caption: "Phần 5: Học không giám sát (Unsupervised Learning)"
+    chapters:
+      - file: notebooks/05_unsupervised/01_k_means_clustering
+      - file: notebooks/05_unsupervised/02_hierarchical_clustering_dbscan
+      - file: notebooks/05_unsupervised/03_pca_svd_dimensionality_reduction
+      - file: notebooks/05_unsupervised/04_gaussian_mixture_models_em
+
+  - caption: "Phần 6: Mạng Neuron & Bộ tối ưu hóa (Neural Networks)"
+    chapters:
+      - file: notebooks/06_neural_networks/01_computational_graph_backprop
+      - file: notebooks/06_neural_networks/02_multi_layer_perceptron
+      - file: notebooks/06_neural_networks/03_optimizers_momentum_adam

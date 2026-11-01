@@ -1,0 +1,26 @@
+title: Machine Learning From Scratch
+author: Hoàng Manhh Đức
+logo: https://raw.githubusercontent.com/jupyter/design/master/logos/circle-color/circle-color.png
+repository:
+  url: https://github.com/hdwc-151/ML
+  path_to_book: "."
+  branch: main
+
+execute:
+  execute_notebooks: auto
+  timeout: 300
+  allow_errors: false
+
+html:
+  use_issues_button: true
+  use_repository_button: true
+  use_edit_page_button: true
+  home_page_in_navbar: true
+
+parse:
+  myst_enable_extensions:
+    - dollarmath
+    - amsmath
+    - colon_fence
+    - deflist
+    - html_image
