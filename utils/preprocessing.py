@@ -29,3 +29,22 @@ def train_test_split(X: np.ndarray, y: np.ndarray, test_size: float = 0.2, rando
     test_idx = indices[:test_count]
     train_idx = indices[test_count:]
     return X[train_idx], X[test_idx], y[train_idx], y[test_idx]
+
+class PolynomialFeatures:
+    """Tạo đặc trưng đa thức lên đến bậc degree."""
+    def __init__(self, degree: int = 2):
+        self.degree = degree
+
+    def fit(self, X: np.ndarray):
+        return self
+
+    def transform(self, X: np.ndarray) -> np.ndarray:
+        X = np.asarray(X)
+        if X.ndim == 1:
+            X = X.reshape(-1, 1)
+        # Chỉ tạo các bậc từ 1 đến degree (Bậc 0 sẽ do tham số fit_intercept của Model tự xử lý)
+        features = [X ** i for i in range(1, self.degree + 1)]
+        return np.hstack(features)
+
+    def fit_transform(self, X: np.ndarray) -> np.ndarray:
+        return self.transform(X)
