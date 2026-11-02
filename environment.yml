@@ -1,0 +1,9 @@
+name: ml-from-scratch
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13.12
+  - pip
+  - pip:
+      - -e .
+      - -r requirements.txt
