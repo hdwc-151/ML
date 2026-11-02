@@ -1,0 +1,78 @@
+version: 1
+description: "Stable topic identifiers for the ML from scratch learning repository."
+topics:
+  mathematics:
+    - id: MATH-01
+      name: Linear algebra
+      prerequisites: []
+    - id: MATH-02
+      name: Analytic geometry
+      prerequisites: [MATH-01]
+    - id: MATH-03
+      name: Matrix decompositions
+      prerequisites: [MATH-01, MATH-02]
+    - id: MATH-04
+      name: Differential and vector calculus
+      prerequisites: [MATH-01]
+    - id: MATH-05
+      name: Probability and statistics
+      prerequisites: []
+    - id: MATH-06
+      name: Continuous optimization
+      prerequisites: [MATH-01, MATH-04, MATH-05]
+    - id: MATH-07
+      name: Information theory
+      prerequisites: [MATH-05]
+    - id: MATH-08
+      name: Numerical computation
+      prerequisites: [MATH-01, MATH-04]
+  machine_learning:
+    - id: ML-01
+      name: Problem formulation and generalization
+      prerequisites: [MATH-05]
+    - id: ML-02
+      name: Linear regression
+      prerequisites: [MATH-01, MATH-04, MATH-05]
+    - id: ML-03
+      name: Optimization and regularization
+      prerequisites: [MATH-04, MATH-06]
+    - id: ML-04
+      name: Classification
+      prerequisites: [MATH-05, MATH-07]
+    - id: ML-05
+      name: Instance-based and probabilistic learning
+      prerequisites: [MATH-02, MATH-05]
+    - id: ML-06
+      name: Trees and ensembles
+      prerequisites: [MATH-05]
+    - id: ML-07
+      name: Unsupervised learning
+      prerequisites: [MATH-01, MATH-05, MATH-06]
+    - id: ML-08
+      name: Model evaluation and selection
+      prerequisites: [ML-01]
+  deep_learning:
+    - id: DL-01
+      name: Neural network foundations
+      prerequisites: [MATH-01, MATH-04, MATH-07]
+    - id: DL-02
+      name: Computational graphs and backpropagation
+      prerequisites: [MATH-04]
+    - id: DL-03
+      name: Optimization for deep networks
+      prerequisites: [MATH-06, DL-02]
+    - id: DL-04
+      name: Generalization and regularization
+      prerequisites: [ML-01, DL-01]
+    - id: DL-05
+      name: Convolutional networks
+      prerequisites: [DL-01, DL-02]
+    - id: DL-06
+      name: Sequence modeling
+      prerequisites: [DL-01, DL-02]
+    - id: DL-07
+      name: Representation learning
+      prerequisites: [DL-01, DL-02]
+    - id: DL-08
+      name: Generative models
+      prerequisites: [MATH-05, DL-01, DL-02]

@@ -2,6 +2,21 @@ format: jb-book
 root: intro
 
 parts:
+  - caption: "Hướng dẫn và tài liệu tham khảo"
+    chapters:
+      - file: docs/references/README
+      - file: docs/references/indexes/mathematics
+      - file: docs/references/indexes/machine-learning
+      - file: docs/references/indexes/deep-learning
+      - file: docs/references/indexes/topic-to-notebook
+      - file: docs/ci/github-actions
+      - file: docs/references/books/MML-001
+      - file: docs/references/books/VHT-001
+      - file: docs/references/books/ISLR-001
+      - file: docs/references/books/ESL-001
+      - file: docs/references/books/PRML-001
+      - file: docs/references/books/DL-001
+
   - caption: "Phần 0: Nền tảng toán học & Tiện ích"
     chapters:
       - file: algorithms/notebooks/00_foundations/01_linear_algebra_calculus
@@ -18,7 +33,7 @@ parts:
     chapters:
       - file: algorithms/notebooks/02_classification/01_perceptron_learning_algorithm
       - file: algorithms/notebooks/02_classification/02_logistic_regression
-      - file: algorithms/notebooks/02_classification/03_softmax_multiclass
+      - file: algorithms/notebooks/02_classification/03_softmax_regression
       - file: algorithms/notebooks/02_classification/04_support_vector_machines
 
   - caption: "Phần 3: Thuật toán thực thể & Xác suất (Instance & Bayes)"
