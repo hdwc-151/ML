@@ -4,191 +4,107 @@
 
 [🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 简体中文](README.zh-CN.md)
 
-Dự án học tập và thực nghiệm về **Machine Learning (ML)** và nền tảng **Deep Learning (DL)**, kết hợp suy luận toán học, triển khai bằng Python/NumPy, trực quan hóa và đối chiếu với thư viện tham chiếu.
+Dự án học tập và thực nghiệm về Machine Learning và nền tảng Deep Learning, kết hợp suy luận toán học, triển khai Python/NumPy, trực quan hóa và đối chiếu với thư viện tham chiếu.
 
-> **Trạng thái:** Dự án giáo dục đang phát triển. Nội dung hiện gồm notebook học tập và một số tiện ích dùng chung. Độ hoàn thiện, tính ổn định API và khả năng tái lập khác nhau theo chủ đề. Đây chưa phải framework ML dùng trong production.
+> **Trạng thái:** Dự án giáo dục đang phát triển; chưa phải framework ML dùng trong production.
 
 ## Khám phá
 
-- **[Đọc sách trực tuyến (Jupyter Book)](https://hdwc-151.github.io/ML/)** — trạng thái website phụ thuộc triển khai GitHub Pages.
-- [Kho notebook](algorithms/notebooks)
-- [Tiện ích dùng chung](utils)
+- [Đọc sách trực tuyến — Jupyter Book](https://hdwc-151.github.io/ML/)
+- [Notebook algorithms](algorithms/notebooks)
+- [Tài liệu tham khảo học thuật](docs/references/README.md)
+- [Chỉ mục Toán học](docs/references/indexes/mathematics.md) · [ML](docs/references/indexes/machine-learning.md) · [DL](docs/references/indexes/deep-learning.md)
+- [Topic → Notebook → Reference](docs/references/indexes/topic-to-notebook.md)
+- [CI/CD và xử lý lỗi GitHub Actions](docs/ci/github-actions.md)
 - [Báo lỗi / đề xuất](https://github.com/hdwc-151/ML/issues)
 
 ## Phương pháp học
 
-1. **Hiểu bài toán:** mục tiêu, giả định, ký hiệu và phạm vi áp dụng.
-2. **Suy luận toán học:** hàm mục tiêu, công thức và logic tối ưu.
-3. **Tự triển khai:** chuyển phép suy luận thành mã Python/NumPy dễ đọc.
-4. **Thực nghiệm:** trực quan hóa, thay đổi tham số, khảo sát trường hợp biên.
-5. **Kiểm chứng:** đối chiếu có chủ đích với tài liệu hoặc thư viện như scikit-learn.
+1. Hiểu bài toán, giả định, ký hiệu và phạm vi áp dụng.
+2. Suy luận toán học: hàm mục tiêu, công thức và logic tối ưu.
+3. Tự triển khai bằng Python/NumPy.
+4. Thực nghiệm, trực quan hóa và khảo sát trường hợp biên.
+5. Kiểm chứng với tài liệu hoặc thư viện tham chiếu.
 
-“From scratch” là phương pháp học, không tự động đảm bảo đúng, tối ưu hay ổn định. So sánh chỉ có ý nghĩa khi giả định, dữ liệu, cách đánh giá và dung sai tương thích.
+“From scratch” là phương pháp học, không tự động đảm bảo đúng, tối ưu hay ổn định.
 
 ## Lộ trình nội dung
 
-| Phần | Chủ đề | Notebook |
-|---|---|---|
-| 00 · Nền tảng | Đại số tuyến tính, giải tích, xác suất, MLE/MAP | [Mở](algorithms/notebooks/00_foundations) |
-| 01 · Hồi quy | Normal equation, gradient descent, polynomial, Ridge/Lasso/Elastic Net | [Mở](algorithms/notebooks/01_regression) |
-| 02 · Phân loại | Perceptron, logistic/softmax regression, SVM | [Mở](algorithms/notebooks/02_classification) |
-| 03 · Lân cận & Bayes | KNN, Gaussian và Multinomial Naive Bayes | [Mở](algorithms/notebooks/03_instance_bayes) |
-| 04 · Cây & tổ hợp | Decision trees, random forest, AdaBoost, gradient boosting | [Mở](algorithms/notebooks/04_trees_ensembles) |
-| 05 · Không giám sát | K-means, clustering, DBSCAN, PCA/SVD, GMM/EM | [Mở](algorithms/notebooks/05_unsupervised) |
-| 06 · Mạng nơ-ron | Computational graph, backpropagation, MLP, optimizer | [Mở](algorithms/notebooks/06_neural_networks) |
+| Phần | Chủ đề |
+|---|---|
+| 00 | Đại số tuyến tính, giải tích, xác suất, MLE/MAP |
+| 01 | Normal equation, gradient descent, polynomial regression, regularization |
+| 02 | Perceptron, logistic/softmax regression, SVM |
+| 03 | KNN, Gaussian và Multinomial Naive Bayes |
+| 04 | Decision trees, random forest, AdaBoost, gradient boosting |
+| 05 | K-means, clustering, DBSCAN, PCA/SVD, GMM/EM |
+| 06 | Computational graph, backpropagation, MLP, optimizers |
 
-**Phạm vi:** Bảng mô tả chủ đề trong notebook, không khẳng định mọi thuật toán đã thành estimator hoàn chỉnh trong package.
-
-## Cấu trúc repository
-
-~~~text
-ML/
-├── algorithms/notebooks/
-│   ├── 00_foundations/
-│   ├── 01_regression/
-│   ├── 02_classification/
-│   ├── 03_instance_bayes/
-│   ├── 04_trees_ensembles/
-│   ├── 05_unsupervised/
-│   └── 06_neural_networks/
-├── utils/
-│   ├── __init__.py
-│   ├── activations.py
-│   ├── distances.py
-│   ├── losses.py
-│   ├── metrics.py
-│   └── preprocessing.py
-├── .github/workflows/deploy.yml
-├── _config.yml
-├── _toc.yml
-├── intro.md
-├── pyproject.toml
-├── requirements.txt
-├── README.md
-├── README.en.md
-└── README.zh-CN.md
-~~~
-
-Sơ đồ lược bỏ artifact sinh tự động, bytecode và notebook cache.
-
-## Bắt đầu
-
-### Yêu cầu
-- Python **3.9+** theo metadata dự án.
-- Conda hoặc Python venv.
-- Git và kết nối Internet để cài thư viện.
-
-CI hiện dùng Python 3.11; khuyến nghị dùng cùng phiên bản.
-
-### 1. Clone
-
-~~~bash
-git clone https://github.com/hdwc-151/ML.git
-cd ML
-~~~
-
-### 2. Tạo môi trường
-
-**Conda (Python 3.13.12 — môi trường đã kiểm tra):**
-
-~~~bash
-conda env create -f environment.yml
-conda activate ml-from-scratch
-~~~
-
-Nếu môi trường đã tồn tại, cập nhật bằng `conda env update -f environment.yml --prune`.
-
-**Hoặc venv (Python 3.13.12):**
-
-~~~bash
-python -m venv .venv
-# Windows PowerShell
-.venv\Scripts\Activate.ps1
-# macOS/Linux
-source .venv/bin/activate
-~~~
-
-### 3. Cài đặt
-
-~~~bash
-python -m pip install --upgrade pip
-python -m pip install -e .
-python -m pip install -r requirements.txt
-~~~
-
-Metadata khai báo NumPy, Matplotlib, scikit-learn; requirements bổ sung Jupyter Book. Dependency chưa được khóa phiên bản đầy đủ, nên chưa đảm bảo tái lập tuyệt đối.
-
-### 4. Chạy notebook
-
-~~~bash
-jupyter notebook
-~~~
-
-Mở notebook trong thư mục algorithms/notebooks. Nếu dùng JupyterLab:
-
-~~~bash
-python -m pip install jupyterlab
-jupyter lab
-~~~
-
-### 5. Kiểm tra utility
-
-~~~python
-import utils
-print(utils.__all__)
-~~~
-
-Các tiện ích hiện cung cấp một số hàm activation, loss, metric, khoảng cách và preprocessing. Xem [utils/__init__.py](utils/__init__.py) và từng module để biết API chính xác.
-
-## Tái lập và kiểm chứng
-
-- Chạy notebook theo thứ tự trong kernel mới.
-- Ghi phiên bản thư viện, random seed và nguồn dữ liệu khi phù hợp.
-- Chia dữ liệu trước khi fit preprocessing; chỉ fit transform trên tập train.
-- Kiểm tra shape, ổn định số, trường hợp biên và hội tụ.
-- So sánh với triển khai độc lập khi giả định và dung sai tương thích.
-- Không commit dữ liệu lớn, checkpoint, credential hoặc file môi trường cá nhân.
-
-**Khoảng trống:** Chưa có bộ automated test toàn diện và environment lockfile đầy đủ. Cài package thành công không chứng minh thuật toán đúng hay notebook tái lập.
-
-## Đóng góp
-
-1. Tạo nhánh riêng cho thay đổi có phạm vi rõ.
-2. Giữ diff gọn, giải thích mục đích và cơ sở toán học.
-3. Chạy notebook liên quan từ kernel sạch, kiểm thử utility đã đổi.
-4. Mô tả tác động, giả định và giới hạn trong pull request.
-
-Smoke checks:
-
-~~~bash
-python -m pip check
-python -c "import utils; print('utils import OK')"
-~~~
-
-Đây chỉ là kiểm tra cơ bản, không thay thế unit test hay chạy notebook.
-
-## Triển khai sách
-
-Workflow [deploy.yml](.github/workflows/deploy.yml) build Jupyter Book và publish HTML lên GitHub Pages khi push vào main. Hãy kiểm tra TOC, kết quả build và trạng thái deploy.
+Xem [danh mục notebook](algorithms/notebooks). Bảng này mô tả chủ đề hiện có, không khẳng định mọi thuật toán đã là estimator hoàn chỉnh.
 
 ## Tài liệu tham khảo
 
-### Toán học cho Machine Learning
+Catalog chuẩn hóa nằm tại [docs/references](docs/references/README.md). Các tài liệu chính:
+- Deisenroth, Faisal, Ong — *Mathematics for Machine Learning*: https://mml-book.github.io/
+- Vũ Hữu Tiệp — *Machine Learning cơ bản*: https://machinelearningcoban.com/
+- James et al. — *An Introduction to Statistical Learning*: https://www.statlearning.com/
+- Hastie, Tibshirani, Friedman — *The Elements of Statistical Learning*: https://hastie.su.domains/ElemStatLearn/
+- Bishop — *Pattern Recognition and Machine Learning*: https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/
+- Goodfellow, Bengio, Courville — *Deep Learning*: https://www.deeplearningbook.org/
 
-- Marc Peter Deisenroth, A. Aldo Faisal, Cheng Soon Ong, *Mathematics for Machine Learning* — [trang sách và tài nguyên chính thức](https://mml-book.github.io/). Tài liệu nền tảng cho đại số tuyến tính, giải tích vector, xác suất và tối ưu hóa.
-- **Math for ML & ML cơ bản — tài liệu tiếng Việt liên quan đến Vũ Khắc Tiệp:** [AIVietnam Machine Learning course (GitHub)](https://github.com/thanhhff/AIVN-Machine-Learning). Repository khóa học cộng đồng có dẫn tài liệu toán của anh Vũ Khắc Tiệp. Đây là kho học liệu AIVietnam, không gán nhầm thành repo cá nhân của tác giả.
+**Lưu ý tên tác giả:** nguồn *Machine Learning cơ bản* được biết đến rộng rãi gắn với Vũ Hữu Tiệp. Repository AIVietnam là học liệu cộng đồng, không phải repo cá nhân của tác giả. Xem [ghi chú nguồn](docs/references/books/VHT-001.md).
 
-- Christopher M. Bishop, *Pattern Recognition and Machine Learning*.
-- Trevor Hastie, Robert Tibshirani, Jerome Friedman, *The Elements of Statistical Learning*.
-- Ian Goodfellow, Yoshua Bengio, Aaron Courville, *Deep Learning*.
-- [scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html) · [API](https://scikit-learn.org/stable/modules/classes.html).
-- [NumPy Documentation](https://numpy.org/doc/).
+Ưu tiên website tác giả, nhà xuất bản và thư viện học thuật. Không đưa PDF không rõ quyền phát hành vào repo. Đọc/tải miễn phí không đồng nghĩa với quyền tái phân phối.
 
-Khi dựa vào tài liệu, hãy dẫn rõ chương, ấn bản hoặc trang tham khảo.
+## Cài đặt
+
+Yêu cầu Python 3.9+ theo metadata package. CI dùng Python 3.13.
+
+```bash
+git clone https://github.com/hdwc-151/ML.git
+cd ML
+python -m venv .venv
+# Windows PowerShell: .venv\Scripts\Activate.ps1
+# macOS/Linux: source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e .
+python -m pip install -r requirements.txt
+```
+
+Chạy notebook bằng `jupyter notebook` hoặc cài JupyterLab. Môi trường Conda có thể tạo từ `environment.yml`.
+
+## Kiểm tra và build sách
+
+```bash
+python -m pip check
+python -c "import utils; print('utils import OK')"
+jupyter-book build .
+```
+
+Workflow deploy nằm tại [.github/workflows/deploy.yml](.github/workflows/deploy.yml). CI xanh chỉ xác nhận các bước đã chạy thành công; không thay thế unit tests, kiểm chứng thuật toán hay đánh giá khoa học. Xem [hướng dẫn xử lý lỗi](docs/ci/github-actions.md).
+
+## Cấu trúc chính
+
+```text
+ML/
+├── algorithms/notebooks/
+├── docs/
+│   ├── references/
+│   │   ├── books/
+│   │   ├── indexes/
+│   │   └── taxonomy/
+│   └── ci/
+├── utils/
+├── .github/workflows/
+├── _config.yml
+├── _toc.yml
+└── README*.md
+```
+
+## Đóng góp
+
+Tạo nhánh riêng, giữ diff nhỏ, nêu rõ cơ sở toán học và chạy notebook liên quan từ kernel sạch. Không commit dữ liệu lớn, checkpoint, secrets hoặc file môi trường cá nhân.
 
 ## Giấy phép
 
-Repository hiện **chưa có file LICENSE**. Khi chưa có license, quyền tái sử dụng, phân phối lại và đóng góp mã chưa được cấp phép rõ ràng. Hãy bổ sung license phù hợp trước khi giới thiệu dự án là phần mềm mở có thể tái sử dụng.
-
----
-Được duy trì bởi [hdwc-151](https://github.com/hdwc-151).
+Repository hiện chưa có file LICENSE. Khi chưa có license, quyền tái sử dụng và phân phối lại mã chưa được cấp phép rõ ràng.
