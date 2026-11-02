@@ -89,14 +89,16 @@ cd ML
 
 ### 2. Tạo môi trường
 
-**Conda:**
+**Conda (Python 3.13.12 — môi trường đã kiểm tra):**
 
 ~~~bash
-conda create -n ml-from-scratch python=3.11 -y
+conda env create -f environment.yml
 conda activate ml-from-scratch
 ~~~
 
-**Hoặc venv:**
+Nếu môi trường đã tồn tại, cập nhật bằng `conda env update -f environment.yml --prune`.
+
+**Hoặc venv (Python 3.13.12):**
 
 ~~~bash
 python -m venv .venv
@@ -170,6 +172,11 @@ python -c "import utils; print('utils import OK')"
 Workflow [deploy.yml](.github/workflows/deploy.yml) build Jupyter Book và publish HTML lên GitHub Pages khi push vào main. Hãy kiểm tra TOC, kết quả build và trạng thái deploy.
 
 ## Tài liệu tham khảo
+
+### Toán học cho Machine Learning
+
+- Marc Peter Deisenroth, A. Aldo Faisal, Cheng Soon Ong, *Mathematics for Machine Learning* — [trang sách và tài nguyên chính thức](https://mml-book.github.io/). Tài liệu nền tảng cho đại số tuyến tính, giải tích vector, xác suất và tối ưu hóa.
+- **Math for ML & ML cơ bản — tài liệu tiếng Việt liên quan đến Vũ Khắc Tiệp:** [AIVietnam Machine Learning course (GitHub)](https://github.com/thanhhff/AIVN-Machine-Learning). Repository khóa học cộng đồng có dẫn tài liệu toán của anh Vũ Khắc Tiệp. Đây là kho học liệu AIVietnam, không gán nhầm thành repo cá nhân của tác giả.
 
 - Christopher M. Bishop, *Pattern Recognition and Machine Learning*.
 - Trevor Hastie, Robert Tibshirani, Jerome Friedman, *The Elements of Statistical Learning*.

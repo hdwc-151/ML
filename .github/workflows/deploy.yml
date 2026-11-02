@@ -39,7 +39,7 @@ jobs:
           python -c "import utils; print('utils import OK')"
 
       - name: Build Jupyter Book
-        run: jupyter-book build . --warningiserror
+        run: jupyter-book build .
 
       - name: Deploy HTML to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

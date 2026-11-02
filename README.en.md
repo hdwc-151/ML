@@ -71,14 +71,16 @@ cd ML
 
 ### 2. Environment
 
-**Conda:**
+**Conda (Python 3.13.12):**
 
 ~~~bash
-conda create -n ml-from-scratch python=3.11 -y
+conda env create -f environment.yml
 conda activate ml-from-scratch
 ~~~
 
-**Or venv:**
+Update an existing environment with `conda env update -f environment.yml --prune`.
+
+**Or venv (Python 3.13.12):**
 
 ~~~bash
 python -m venv .venv
@@ -148,6 +150,11 @@ These smoke checks do not replace tests or notebook execution.
 [The deployment workflow](.github/workflows/deploy.yml) builds Jupyter Book and publishes HTML to GitHub Pages on pushes to main. Validate TOC paths, build results, and deployment status separately.
 
 ## References
+
+### Mathematics for Machine Learning
+
+- Marc Peter Deisenroth, A. Aldo Faisal, Cheng Soon Ong, *Mathematics for Machine Learning* — [official book website and resources](https://mml-book.github.io/).
+- **Vietnamese ML foundations / Vũ Khắc Tiệp learning material:** [AIVietnam Machine Learning course (GitHub)](https://github.com/thanhhff/AIVN-Machine-Learning). This community course links to mathematics material by Vũ Khắc Tiệp; it is an AIVietnam course repository, not represented as the author's personal GitHub repository.
 - Christopher M. Bishop, *Pattern Recognition and Machine Learning*.
 - Trevor Hastie, Robert Tibshirani, Jerome Friedman, *The Elements of Statistical Learning*.
 - Ian Goodfellow, Yoshua Bengio, Aaron Courville, *Deep Learning*.

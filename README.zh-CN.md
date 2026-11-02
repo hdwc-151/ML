@@ -71,14 +71,16 @@ cd ML
 
 ### 2. 创建环境
 
-**Conda：**
+**Conda（Python 3.13.12）：**
 
 ~~~bash
-conda create -n ml-from-scratch python=3.11 -y
+conda env create -f environment.yml
 conda activate ml-from-scratch
 ~~~
 
-**或 venv：**
+更新已有环境：`conda env update -f environment.yml --prune`。
+
+**或 venv（Python 3.13.12）：**
 
 ~~~bash
 python -m venv .venv
@@ -148,6 +150,11 @@ python -c "import utils; print('utils import OK')"
 [部署工作流](.github/workflows/deploy.yml) 会在推送到 main 时构建 Jupyter Book，并将 HTML 发布到 GitHub Pages。请分别检查 TOC、构建与部署状态。
 
 ## 参考资料
+
+### 机器学习数学基础
+
+- Marc Peter Deisenroth、A. Aldo Faisal、Cheng Soon Ong，*Mathematics for Machine Learning* — [官方网站与教材资源](https://mml-book.github.io/)。
+- **越南语 ML 基础与 Vũ Khắc Tiệp 相关学习资料：** [AIVietnam Machine Learning course（GitHub）](https://github.com/thanhhff/AIVN-Machine-Learning)。该社区课程引用了 Vũ Khắc Tiệp 的数学学习资料；此链接是 AIVietnam 课程仓库，并非将其误称为作者个人仓库。
 - Christopher M. Bishop，*Pattern Recognition and Machine Learning*。
 - Trevor Hastie、Robert Tibshirani、Jerome Friedman，*The Elements of Statistical Learning*。
 - Ian Goodfellow、Yoshua Bengio、Aaron Courville，*Deep Learning*。
