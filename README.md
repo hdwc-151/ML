@@ -1,61 +1,56 @@
 # Machine Learning From Scratch
 
-**Derive the mathematics. Implement the algorithms. Verify the results.**
+**Hiểu toán học · Tự triển khai thuật toán · Kiểm chứng bằng thực nghiệm**
 
-A learning and experimentation repository for understanding classical Machine Learning (ML) and foundational Deep Learning (DL) through mathematical derivations, NumPy-based implementations, visualizations, and comparisons with established tools.
+[🇻🇳 Tiếng Việt](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 简体中文](README.zh-CN.md)
 
-> **Status:** Educational project in active development. The repository contains learning notebooks and shared utilities. Coverage, API stability, and reproducibility vary by topic; this is not a production-ready ML framework.
+Dự án học tập và thực nghiệm về **Machine Learning (ML)** và nền tảng **Deep Learning (DL)**, kết hợp suy luận toán học, triển khai bằng Python/NumPy, trực quan hóa và đối chiếu với thư viện tham chiếu.
 
-[![Python](https://img.shields.io/badge/Python-%3E%3D3.9-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![NumPy](https://img.shields.io/badge/Core-NumPy-013243?logo=numpy)](https://numpy.org/)
-[![Online Book](https://img.shields.io/badge/Read-Online%20Book-brightgreen)](https://hdwc-151.github.io/ML/)
+> **Trạng thái:** Dự án giáo dục đang phát triển. Nội dung hiện gồm notebook học tập và một số tiện ích dùng chung. Độ hoàn thiện, tính ổn định API và khả năng tái lập khác nhau theo chủ đề. Đây chưa phải framework ML dùng trong production.
 
-## Explore
+## Khám phá
 
-- **[Read the online book](https://hdwc-151.github.io/ML/)** — hosted material; freshness depends on successful deployment.
-- **[Browse notebooks](https://github.com/hdwc-151/ML/tree/main/algorithms/notebooks)** — derivations, implementations, experiments.
-- **[Explore shared utilities](https://github.com/hdwc-151/ML/tree/main/utils)** — reusable ML helpers.
-- **[Report an issue](https://github.com/hdwc-151/ML/issues)** — bugs, corrections, suggestions.
+- **[Đọc sách trực tuyến (Jupyter Book)](https://hdwc-151.github.io/ML/)** — trạng thái website phụ thuộc triển khai GitHub Pages.
+- [Kho notebook](algorithms/notebooks)
+- [Tiện ích dùng chung](utils)
+- [Báo lỗi / đề xuất](https://github.com/hdwc-151/ML/issues)
 
-## Learning approach
+## Phương pháp học
 
-The intended workflow for each topic:
+1. **Hiểu bài toán:** mục tiêu, giả định, ký hiệu và phạm vi áp dụng.
+2. **Suy luận toán học:** hàm mục tiêu, công thức và logic tối ưu.
+3. **Tự triển khai:** chuyển phép suy luận thành mã Python/NumPy dễ đọc.
+4. **Thực nghiệm:** trực quan hóa, thay đổi tham số, khảo sát trường hợp biên.
+5. **Kiểm chứng:** đối chiếu có chủ đích với tài liệu hoặc thư viện như scikit-learn.
 
-1. **Understand:** define the problem, assumptions, and notation.
-2. **Derive:** work through objectives, equations, and optimization logic.
-3. **Implement:** translate the derivation into readable Python/NumPy.
-4. **Experiment:** visualize behavior, vary inputs, and probe edge cases.
-5. **Verify:** compare selected results with trusted references such as scikit-learn where appropriate.
+“From scratch” là phương pháp học, không tự động đảm bảo đúng, tối ưu hay ổn định. So sánh chỉ có ý nghĩa khi giả định, dữ liệu, cách đánh giá và dung sai tương thích.
 
-A from-scratch implementation is a learning exercise—not automatically a correct or efficient one. Comparisons are tests to design and interpret, not proof of universal correctness.
+## Lộ trình nội dung
 
-## Curriculum
-
-| Section | Topics | Notebooks |
+| Phần | Chủ đề | Notebook |
 |---|---|---|
-| 00 · Foundations | Linear algebra, calculus, probability, MLE/MAP | [Open](algorithms/notebooks/00_foundations) |
-| 01 · Regression | Normal equation, gradient descent, polynomial regression, Ridge/Lasso/Elastic Net | [Open](algorithms/notebooks/01_regression) |
-| 02 · Classification | Perceptron, logistic and softmax regression, SVM | [Open](algorithms/notebooks/02_classification) |
-| 03 · Instance-based & Bayesian | K-nearest neighbors, Gaussian and Multinomial Naive Bayes | [Open](algorithms/notebooks/03_instance_bayes) |
-| 04 · Trees & ensembles | Decision trees, random forests, AdaBoost, gradient boosting | [Open](algorithms/notebooks/04_trees_ensembles) |
-| 05 · Unsupervised learning | K-means, hierarchical clustering, DBSCAN, PCA, SVD, GMM, EM | [Open](algorithms/notebooks/05_unsupervised) |
-| 06 · Neural networks | Computational graphs, backpropagation, MLP, optimization methods | [Open](algorithms/notebooks/06_neural_networks) |
+| 00 · Nền tảng | Đại số tuyến tính, giải tích, xác suất, MLE/MAP | [Mở](algorithms/notebooks/00_foundations) |
+| 01 · Hồi quy | Normal equation, gradient descent, polynomial, Ridge/Lasso/Elastic Net | [Mở](algorithms/notebooks/01_regression) |
+| 02 · Phân loại | Perceptron, logistic/softmax regression, SVM | [Mở](algorithms/notebooks/02_classification) |
+| 03 · Lân cận & Bayes | KNN, Gaussian và Multinomial Naive Bayes | [Mở](algorithms/notebooks/03_instance_bayes) |
+| 04 · Cây & tổ hợp | Decision trees, random forest, AdaBoost, gradient boosting | [Mở](algorithms/notebooks/04_trees_ensembles) |
+| 05 · Không giám sát | K-means, clustering, DBSCAN, PCA/SVD, GMM/EM | [Mở](algorithms/notebooks/05_unsupervised) |
+| 06 · Mạng nơ-ron | Computational graph, backpropagation, MLP, optimizer | [Mở](algorithms/notebooks/06_neural_networks) |
 
-**Scope:** Topics listed describe the notebook curriculum. They do not imply every method is available as a polished, reusable estimator in the Python package.
+**Phạm vi:** Bảng mô tả chủ đề trong notebook, không khẳng định mọi thuật toán đã thành estimator hoàn chỉnh trong package.
 
-## Repository structure
+## Cấu trúc repository
 
 ~~~text
 ML/
-├── algorithms/
-│   └── notebooks/
-│       ├── 00_foundations/
-│       ├── 01_regression/
-│       ├── 02_classification/
-│       ├── 03_instance_bayes/
-│       ├── 04_trees_ensembles/
-│       ├── 05_unsupervised/
-│       └── 06_neural_networks/
+├── algorithms/notebooks/
+│   ├── 00_foundations/
+│   ├── 01_regression/
+│   ├── 02_classification/
+│   ├── 03_instance_bayes/
+│   ├── 04_trees_ensembles/
+│   ├── 05_unsupervised/
+│   └── 06_neural_networks/
 ├── utils/
 │   ├── __init__.py
 │   ├── activations.py
@@ -69,20 +64,21 @@ ML/
 ├── intro.md
 ├── pyproject.toml
 ├── requirements.txt
-└── README.md
+├── README.md
+├── README.en.md
+└── README.zh-CN.md
 ~~~
 
-Generated artifacts, Python bytecode, and notebook caches are omitted from this overview.
+Sơ đồ lược bỏ artifact sinh tự động, bytecode và notebook cache.
 
-## Getting started
+## Bắt đầu
 
-### Requirements
+### Yêu cầu
+- Python **3.9+** theo metadata dự án.
+- Conda hoặc Python venv.
+- Git và kết nối Internet để cài thư viện.
 
-- Python **3.9+**, as declared in project metadata.
-- Conda (Miniconda, Miniforge, or Anaconda) or Python venv.
-- Git and internet access for dependency installation.
-
-CI currently uses Python 3.11. For a closer match to CI, use 3.11 locally; other versions should be validated.
+CI hiện dùng Python 3.11; khuyến nghị dùng cùng phiên bản.
 
 ### 1. Clone
 
@@ -91,16 +87,16 @@ git clone https://github.com/hdwc-151/ML.git
 cd ML
 ~~~
 
-### 2. Create an environment
+### 2. Tạo môi trường
 
-**Conda (recommended):**
+**Conda:**
 
 ~~~bash
 conda create -n ml-from-scratch python=3.11 -y
 conda activate ml-from-scratch
 ~~~
 
-**Alternative: venv**
+**Hoặc venv:**
 
 ~~~bash
 python -m venv .venv
@@ -110,7 +106,7 @@ python -m venv .venv
 source .venv/bin/activate
 ~~~
 
-### 3. Install
+### 3. Cài đặt
 
 ~~~bash
 python -m pip install --upgrade pip
@@ -118,85 +114,74 @@ python -m pip install -e .
 python -m pip install -r requirements.txt
 ~~~
 
-The project metadata declares NumPy, Matplotlib, and scikit-learn. The requirements file also includes Jupyter Book. Dependencies are not fully pinned, so this is not a bit-for-bit environment lock.
+Metadata khai báo NumPy, Matplotlib, scikit-learn; requirements bổ sung Jupyter Book. Dependency chưa được khóa phiên bản đầy đủ, nên chưa đảm bảo tái lập tuyệt đối.
 
-### 4. Run notebooks
+### 4. Chạy notebook
 
 ~~~bash
 jupyter notebook
 ~~~
 
-Open notebooks from **algorithms/notebooks/** in the Jupyter browser.
-
-To use JupyterLab instead:
+Mở notebook trong thư mục algorithms/notebooks. Nếu dùng JupyterLab:
 
 ~~~bash
 python -m pip install jupyterlab
 jupyter lab
 ~~~
 
-### 5. Inspect the utility package
+### 5. Kiểm tra utility
 
 ~~~python
 import utils
-
 print(utils.__all__)
 ~~~
 
-The shared utilities expose selected activation functions, loss functions, metrics, distance calculations, and preprocessing helpers. Consult [utils/__init__.py](utils/__init__.py) and individual modules for exact APIs.
+Các tiện ích hiện cung cấp một số hàm activation, loss, metric, khoảng cách và preprocessing. Xem [utils/__init__.py](utils/__init__.py) và từng module để biết API chính xác.
 
-## Reproducibility and validation
+## Tái lập và kiểm chứng
 
-When running or extending notebooks:
+- Chạy notebook theo thứ tự trong kernel mới.
+- Ghi phiên bản thư viện, random seed và nguồn dữ liệu khi phù hợp.
+- Chia dữ liệu trước khi fit preprocessing; chỉ fit transform trên tập train.
+- Kiểm tra shape, ổn định số, trường hợp biên và hội tụ.
+- So sánh với triển khai độc lập khi giả định và dung sai tương thích.
+- Không commit dữ liệu lớn, checkpoint, credential hoặc file môi trường cá nhân.
 
-- Run cells in order in a fresh kernel.
-- Record package versions, random seeds, and data sources where relevant.
-- Split data before fitting preprocessing; fit transforms on training data only.
-- Check shapes, numerical stability, edge cases, and convergence.
-- Compare against an independent implementation with aligned assumptions and sensible tolerances.
-- Do not commit large datasets, model checkpoints, credentials, or local environment files.
+**Khoảng trống:** Chưa có bộ automated test toàn diện và environment lockfile đầy đủ. Cài package thành công không chứng minh thuật toán đúng hay notebook tái lập.
 
-**Known maturity gap:** The repository does not yet provide a comprehensive automated test suite or fully pinned environment lockfile. Do not assume algorithm correctness or notebook reproducibility solely because package installation succeeds.
+## Đóng góp
 
-## Development
+1. Tạo nhánh riêng cho thay đổi có phạm vi rõ.
+2. Giữ diff gọn, giải thích mục đích và cơ sở toán học.
+3. Chạy notebook liên quan từ kernel sạch, kiểm thử utility đã đổi.
+4. Mô tả tác động, giả định và giới hạn trong pull request.
 
-1. Create a focused branch.
-2. Keep changes scoped and explain the motivation.
-3. Run affected notebooks from a clean kernel.
-4. Validate changed utility behavior.
-5. Summarize mathematical and behavioral implications in your pull request.
-
-Suggested smoke checks:
+Smoke checks:
 
 ~~~bash
 python -m pip check
 python -c "import utils; print('utils import OK')"
 ~~~
 
-These checks are not substitutes for unit tests or notebook execution.
+Đây chỉ là kiểm tra cơ bản, không thay thế unit test hay chạy notebook.
 
-## Deployment
+## Triển khai sách
 
-The repository includes [the GitHub Actions workflow](.github/workflows/deploy.yml), which builds Jupyter Book and publishes HTML to GitHub Pages on pushes to main.
+Workflow [deploy.yml](.github/workflows/deploy.yml) build Jupyter Book và publish HTML lên GitHub Pages khi push vào main. Hãy kiểm tra TOC, kết quả build và trạng thái deploy.
 
-Before relying on the published site, verify that all chapter paths exist, the Jupyter Book version supports the configuration, the workflow succeeds, and the deployed site reflects the intended commit.
-
-> **Deployment blocker identified:** The current table of contents references **notebooks/** paths, but the notebook files currently live under **algorithms/notebooks/**. Align the TOC or intentionally reorganize the notebooks, then run a clean book build before treating deployment as healthy.
-
-## References
+## Tài liệu tham khảo
 
 - Christopher M. Bishop, *Pattern Recognition and Machine Learning*.
 - Trevor Hastie, Robert Tibshirani, Jerome Friedman, *The Elements of Statistical Learning*.
 - Ian Goodfellow, Yoshua Bengio, Aaron Courville, *Deep Learning*.
-- [scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html) and [API reference](https://scikit-learn.org/stable/modules/classes.html).
-- [NumPy documentation](https://numpy.org/doc/).
+- [scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html) · [API](https://scikit-learn.org/stable/modules/classes.html).
+- [NumPy Documentation](https://numpy.org/doc/).
 
-When a derivation or result relies on a source, cite the relevant chapter, edition, or documentation page.
+Khi dựa vào tài liệu, hãy dẫn rõ chương, ấn bản hoặc trang tham khảo.
 
-## License
+## Giấy phép
 
-**No license file is currently present.** Until a license is added, reuse, redistribution, and contribution terms are not explicitly granted. Add an appropriate LICENSE before describing this project as openly reusable software.
+Repository hiện **chưa có file LICENSE**. Khi chưa có license, quyền tái sử dụng, phân phối lại và đóng góp mã chưa được cấp phép rõ ràng. Hãy bổ sung license phù hợp trước khi giới thiệu dự án là phần mềm mở có thể tái sử dụng.
 
 ---
-
-Maintained by [hdwc-151](https://github.com/hdwc-151).
+Được duy trì bởi [hdwc-151](https://github.com/hdwc-151).
