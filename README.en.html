@@ -485,7 +485,10 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reproducibility-and-validation">Reproducibility and validation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">Contributing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#book-deployment">Book deployment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematics-for-machine-learning">Mathematics for Machine Learning</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
             </nav>
@@ -604,12 +607,13 @@
 </section>
 <section id="environment">
 <h3>2. Environment<a class="headerlink" href="#environment" title="Link to this heading">#</a></h3>
-<p><strong>Conda:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>ml-from-scratch<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
+<p><strong>Conda (Python 3.13.12):</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
 conda<span class="w"> </span>activate<span class="w"> </span>ml-from-scratch
 </pre></div>
 </div>
-<p><strong>Or venv:</strong></p>
+<p>Update an existing environment with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">update</span> <span class="pre">-f</span> <span class="pre">environment.yml</span> <span class="pre">--prune</span></code>.</p>
+<p><strong>Or venv (Python 3.13.12):</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
 <span class="c1"># Windows PowerShell</span>
 .venv<span class="se">\S</span>cripts<span class="se">\A</span>ctivate.ps1
@@ -679,7 +683,11 @@ python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<section id="mathematics-for-machine-learning">
+<h3>Mathematics for Machine Learning<a class="headerlink" href="#mathematics-for-machine-learning" title="Link to this heading">#</a></h3>
 <ul class="simple">
+<li><p>Marc Peter Deisenroth, A. Aldo Faisal, Cheng Soon Ong, <em>Mathematics for Machine Learning</em> — <a class="reference external" href="https://mml-book.github.io/">official book website and resources</a>.</p></li>
+<li><p><strong>Vietnamese ML foundations / Vũ Khắc Tiệp learning material:</strong> <a class="reference external" href="https://github.com/thanhhff/AIVN-Machine-Learning">AIVietnam Machine Learning course (GitHub)</a>. This community course links to mathematics material by Vũ Khắc Tiệp; it is an AIVietnam course repository, not represented as the author’s personal GitHub repository.</p></li>
 <li><p>Christopher M. Bishop, <em>Pattern Recognition and Machine Learning</em>.</p></li>
 <li><p>Trevor Hastie, Robert Tibshirani, Jerome Friedman, <em>The Elements of Statistical Learning</em>.</p></li>
 <li><p>Ian Goodfellow, Yoshua Bengio, Aaron Courville, <em>Deep Learning</em>.</p></li>
@@ -687,6 +695,7 @@ python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import
 <li><p><a class="reference external" href="https://numpy.org/doc/">NumPy documentation</a>.</p></li>
 </ul>
 <p>Cite the relevant chapter, edition, or documentation page.</p>
+</section>
 </section>
 <section id="license">
 <h2>License<a class="headerlink" href="#license" title="Link to this heading">#</a></h2>
@@ -760,7 +769,10 @@ python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reproducibility-and-validation">Reproducibility and validation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contributing">Contributing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#book-deployment">Book deployment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematics-for-machine-learning">Mathematics for Machine Learning</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license">License</a></li>
 </ul>
   </nav></div>

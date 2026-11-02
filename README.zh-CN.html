@@ -485,8 +485,11 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">可复现性与验证</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">参与贡献</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">教材部署</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">参考资料</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">许可证</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">参考资料</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">机器学习数学基础</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">许可证</a></li>
 </ul>
             </nav>
         </div>
@@ -604,12 +607,13 @@
 </section>
 <section id="id8">
 <h3>2. 创建环境<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
-<p><strong>Conda：</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>ml-from-scratch<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
+<p><strong>Conda（Python 3.13.12）：</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
 conda<span class="w"> </span>activate<span class="w"> </span>ml-from-scratch
 </pre></div>
 </div>
-<p><strong>或 venv：</strong></p>
+<p>更新已有环境：<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">update</span> <span class="pre">-f</span> <span class="pre">environment.yml</span> <span class="pre">--prune</span></code>。</p>
+<p><strong>或 venv（Python 3.13.12）：</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
 <span class="c1"># Windows PowerShell</span>
 .venv<span class="se">\S</span>cripts<span class="se">\A</span>ctivate.ps1
@@ -679,7 +683,11 @@ python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import
 </section>
 <section id="id14">
 <h2>参考资料<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<section id="id15">
+<h3>机器学习数学基础<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <ul class="simple">
+<li><p>Marc Peter Deisenroth、A. Aldo Faisal、Cheng Soon Ong，<em>Mathematics for Machine Learning</em> — <a class="reference external" href="https://mml-book.github.io/">官方网站与教材资源</a>。</p></li>
+<li><p><strong>越南语 ML 基础与 Vũ Khắc Tiệp 相关学习资料：</strong> <a class="reference external" href="https://github.com/thanhhff/AIVN-Machine-Learning">AIVietnam Machine Learning course（GitHub）</a>。该社区课程引用了 Vũ Khắc Tiệp 的数学学习资料；此链接是 AIVietnam 课程仓库，并非将其误称为作者个人仓库。</p></li>
 <li><p>Christopher M. Bishop，<em>Pattern Recognition and Machine Learning</em>。</p></li>
 <li><p>Trevor Hastie、Robert Tibshirani、Jerome Friedman，<em>The Elements of Statistical Learning</em>。</p></li>
 <li><p>Ian Goodfellow、Yoshua Bengio、Aaron Courville，<em>Deep Learning</em>。</p></li>
@@ -688,8 +696,9 @@ python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import
 </ul>
 <p>引用推导或结论时，请注明对应章节、版本或文档页面。</p>
 </section>
-<section id="id15">
-<h2>许可证<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+</section>
+<section id="id16">
+<h2>许可证<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
 <p>目前仓库<strong>尚无 LICENSE 文件</strong>。添加合适许可证前，复用、再分发和贡献条款尚未得到明确授权。</p>
 <hr class="docutils" />
 <p>由 <a class="reference external" href="https://github.com/hdwc-151">hdwc-151</a> 维护。</p>
@@ -760,8 +769,11 @@ python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">可复现性与验证</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">参与贡献</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">教材部署</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">参考资料</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">许可证</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">参考资料</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">机器学习数学基础</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">许可证</a></li>
 </ul>
   </nav></div>
 
