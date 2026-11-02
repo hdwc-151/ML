@@ -1,5 +1,10 @@
 numpy
+scipy
 matplotlib
+networkx
 scikit-learn
-# Keep Jupyter Book on the legacy Sphinx-based 1.x line for _config.yml/_toc.yml.
+
+# Keep Jupyter Book on the legacy Sphinx-based 1.x line
+# for compatibility with _config.yml and _toc.yml.
 jupyter-book==1.0.4.post1
+jupyter
