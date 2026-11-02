@@ -1,0 +1,836 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Machine Learning From Scratch &#8212; Machine Learning From Scratch</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'README';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="https://raw.githubusercontent.com/jupyter/design/master/logos/circle-color/circle-color.png" class="logo__image only-light" alt="Machine Learning From Scratch - Home"/>
+    <img src="https://raw.githubusercontent.com/jupyter/design/master/logos/circle-color/circle-color.png" class="logo__image only-dark pst-js-only" alt="Machine Learning From Scratch - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Learn Machine Learning from scratch
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 0: Nền tảng toán học &amp; Tiện ích</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/00_foundations/01_linear_algebra_calculus.html">Đại số Tuyến tính &amp; Giải tích (Linear Algebra &amp; Calculus)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/00_foundations/02_probability_mle_map.html">Xác suất, MLE và MAP (Probability, Maximum Likelihood &amp; A Posteriori)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 1: Học có giám sát - Hồi quy (Regression)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/01_regression/01_linear_regression_normal_equation.html">Hồi quy tuyến tính với Phương trình chuẩn (Normal Equation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/01_regression/02_linear_regression_gradient_descent.html">Hồi quy tuyến tính với Gradient Descent (GD)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/01_regression/03_polynomial_regression.html">Hồi quy Đa thức (Polynomial Regression)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/01_regression/04_ridge_lasso_elasticnet.html">Khắc phục Overfitting bằng Regularization (Ridge &amp; Lasso)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 2: Học có giám sát - Phân loại (Classification)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/02_classification/01_perceptron_learning_algorithm.html">Thuật toán học Perceptron (Perceptron Learning Algorithm - PLA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/02_classification/02_logistic_regression.html">Hồi quy Logistic (Logistic Regression)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/02_classification/04_support_vector_machines.html">Support Vector Machines (SVM) - Phân loại biên mềm (Soft Margin)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 3: Thuật toán thực thể &amp; Xác suất (Instance &amp; Bayes)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/03_instance_bayes/01_k_nearest_neighbors.html">K-Nearest Neighbors (K-NN) Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/03_instance_bayes/02_naive_bayes_gaussian_multinomial.html">Định lý Bayes &amp; Naive Bayes (Gaussian)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 4: Cây quyết định &amp; Học kết hợp (Ensembles)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/04_trees_ensembles/01_decision_trees.html">Cây Quyết Định (Decision Tree - Thuật toán CART)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/04_trees_ensembles/02_random_forest.html">Random Forest (Rừng ngẫu nhiên - Thuật toán Ensemble)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/04_trees_ensembles/03_adaboost_gradient_boosting.html">Học kết hợp tuần tự (Boosting: AdaBoost &amp; Gradient Boosting)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 5: Học không giám sát (Unsupervised Learning)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/05_unsupervised/01_k_means_clustering.html">Phân cụm K-Means (K-Means Clustering)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/05_unsupervised/02_hierarchical_clustering_dbscan.html">Phân cụm dựa trên mật độ (DBSCAN) &amp; Phân cụm phân cấp (Hierarchical)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/05_unsupervised/03_pca_svd_dimensionality_reduction.html">Phân tích Thành phần Chính (PCA) &amp; Phân rã Giá trị Đặc dị (SVD)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/05_unsupervised/04_gaussian_mixture_models_em.html">Mô hình Hỗn hợp Gauss (GMM) &amp; Thuật toán Kỳ vọng - Cực đại (EM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 6: Mạng Neuron &amp; Bộ tối ưu hóa (Neural Networks)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/06_neural_networks/01_computational_graph_backprop.html">Đồ thị tính toán (Computational Graph) &amp; Lan truyền ngược (Backpropagation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/06_neural_networks/02_multi_layer_perceptron.html">Mạng Nơ-ron Đa tầng (Multi-Layer Perceptron - MLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms/notebooks/06_neural_networks/03_optimizers_momentum_adam.html">Bộ Tối Ưu Hóa (Optimizers): Từ SGD đến Adam</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/hdwc-151/ML" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/hdwc-151/ML/edit/main/./README.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/hdwc-151/ML/issues/new?title=Issue%20on%20page%20%2FREADME.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/README.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Machine Learning From Scratch</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kham-pha">Khám phá</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phuong-phap-hoc">Phương pháp học</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lo-trinh-noi-dung">Lộ trình nội dung</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cau-truc-repository">Cấu trúc repository</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bat-dau">Bắt đầu</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yeu-cau">Yêu cầu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clone">1. Clone</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tao-moi-truong">2. Tạo môi trường</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cai-dat">3. Cài đặt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chay-notebook">4. Chạy notebook</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kiem-tra-utility">5. Kiểm tra utility</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tai-lap-va-kiem-chung">Tái lập và kiểm chứng</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dong-gop">Đóng góp</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trien-khai-sach">Triển khai sách</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tai-lieu-tham-khao">Tài liệu tham khảo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#giay-phep">Giấy phép</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="machine-learning-from-scratch">
+<h1>Machine Learning From Scratch<a class="headerlink" href="#machine-learning-from-scratch" title="Link to this heading">#</a></h1>
+<p><strong>Hiểu toán học · Tự triển khai thuật toán · Kiểm chứng bằng thực nghiệm</strong></p>
+<p><a class="reference internal" href="#"><span class="std std-doc">🇻🇳 Tiếng Việt</span></a> · <a class="reference internal" href="README.en.html"><span class="std std-doc">🇬🇧 English</span></a> · <a class="reference internal" href="README.zh-CN.html"><span class="std std-doc">🇨🇳 简体中文</span></a></p>
+<p>Dự án học tập và thực nghiệm về <strong>Machine Learning (ML)</strong> và nền tảng <strong>Deep Learning (DL)</strong>, kết hợp suy luận toán học, triển khai bằng Python/NumPy, trực quan hóa và đối chiếu với thư viện tham chiếu.</p>
+<blockquote>
+<div><p><strong>Trạng thái:</strong> Dự án giáo dục đang phát triển. Nội dung hiện gồm notebook học tập và một số tiện ích dùng chung. Độ hoàn thiện, tính ổn định API và khả năng tái lập khác nhau theo chủ đề. Đây chưa phải framework ML dùng trong production.</p>
+</div></blockquote>
+<section id="kham-pha">
+<h2>Khám phá<a class="headerlink" href="#kham-pha" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong><a class="reference external" href="https://hdwc-151.github.io/ML/">Đọc sách trực tuyến (Jupyter Book)</a></strong> — trạng thái website phụ thuộc triển khai GitHub Pages.</p></li>
+<li><p><a class="reference internal" href="#algorithms/notebooks"><span class="xref myst">Kho notebook</span></a></p></li>
+<li><p><a class="reference internal" href="#utils"><span class="xref myst">Tiện ích dùng chung</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/hdwc-151/ML/issues">Báo lỗi / đề xuất</a></p></li>
+</ul>
+</section>
+<section id="phuong-phap-hoc">
+<h2>Phương pháp học<a class="headerlink" href="#phuong-phap-hoc" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Hiểu bài toán:</strong> mục tiêu, giả định, ký hiệu và phạm vi áp dụng.</p></li>
+<li><p><strong>Suy luận toán học:</strong> hàm mục tiêu, công thức và logic tối ưu.</p></li>
+<li><p><strong>Tự triển khai:</strong> chuyển phép suy luận thành mã Python/NumPy dễ đọc.</p></li>
+<li><p><strong>Thực nghiệm:</strong> trực quan hóa, thay đổi tham số, khảo sát trường hợp biên.</p></li>
+<li><p><strong>Kiểm chứng:</strong> đối chiếu có chủ đích với tài liệu hoặc thư viện như scikit-learn.</p></li>
+</ol>
+<p>“From scratch” là phương pháp học, không tự động đảm bảo đúng, tối ưu hay ổn định. So sánh chỉ có ý nghĩa khi giả định, dữ liệu, cách đánh giá và dung sai tương thích.</p>
+</section>
+<section id="lo-trinh-noi-dung">
+<h2>Lộ trình nội dung<a class="headerlink" href="#lo-trinh-noi-dung" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Phần</p></th>
+<th class="head"><p>Chủ đề</p></th>
+<th class="head"><p>Notebook</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>00 · Nền tảng</p></td>
+<td><p>Đại số tuyến tính, giải tích, xác suất, MLE/MAP</p></td>
+<td><p><a class="reference internal" href="#algorithms/notebooks/00_foundations"><span class="xref myst">Mở</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>01 · Hồi quy</p></td>
+<td><p>Normal equation, gradient descent, polynomial, Ridge/Lasso/Elastic Net</p></td>
+<td><p><a class="reference internal" href="#algorithms/notebooks/01_regression"><span class="xref myst">Mở</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>02 · Phân loại</p></td>
+<td><p>Perceptron, logistic/softmax regression, SVM</p></td>
+<td><p><a class="reference internal" href="#algorithms/notebooks/02_classification"><span class="xref myst">Mở</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>03 · Lân cận &amp; Bayes</p></td>
+<td><p>KNN, Gaussian và Multinomial Naive Bayes</p></td>
+<td><p><a class="reference internal" href="#algorithms/notebooks/03_instance_bayes"><span class="xref myst">Mở</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>04 · Cây &amp; tổ hợp</p></td>
+<td><p>Decision trees, random forest, AdaBoost, gradient boosting</p></td>
+<td><p><a class="reference internal" href="#algorithms/notebooks/04_trees_ensembles"><span class="xref myst">Mở</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>05 · Không giám sát</p></td>
+<td><p>K-means, clustering, DBSCAN, PCA/SVD, GMM/EM</p></td>
+<td><p><a class="reference internal" href="#algorithms/notebooks/05_unsupervised"><span class="xref myst">Mở</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>06 · Mạng nơ-ron</p></td>
+<td><p>Computational graph, backpropagation, MLP, optimizer</p></td>
+<td><p><a class="reference internal" href="#algorithms/notebooks/06_neural_networks"><span class="xref myst">Mở</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Phạm vi:</strong> Bảng mô tả chủ đề trong notebook, không khẳng định mọi thuật toán đã thành estimator hoàn chỉnh trong package.</p>
+</section>
+<section id="cau-truc-repository">
+<h2>Cấu trúc repository<a class="headerlink" href="#cau-truc-repository" title="Link to this heading">#</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ML/
+├── algorithms/notebooks/
+│   ├── 00_foundations/
+│   ├── 01_regression/
+│   ├── 02_classification/
+│   ├── 03_instance_bayes/
+│   ├── 04_trees_ensembles/
+│   ├── 05_unsupervised/
+│   └── 06_neural_networks/
+├── utils/
+│   ├── __init__.py
+│   ├── activations.py
+│   ├── distances.py
+│   ├── losses.py
+│   ├── metrics.py
+│   └── preprocessing.py
+├── .github/workflows/deploy.yml
+├── _config.yml
+├── _toc.yml
+├── intro.md
+├── pyproject.toml
+├── requirements.txt
+├── README.md
+├── README.en.md
+└── README.zh-CN.md
+</pre></div>
+</div>
+<p>Sơ đồ lược bỏ artifact sinh tự động, bytecode và notebook cache.</p>
+</section>
+<section id="bat-dau">
+<h2>Bắt đầu<a class="headerlink" href="#bat-dau" title="Link to this heading">#</a></h2>
+<section id="yeu-cau">
+<h3>Yêu cầu<a class="headerlink" href="#yeu-cau" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Python <strong>3.9+</strong> theo metadata dự án.</p></li>
+<li><p>Conda hoặc Python venv.</p></li>
+<li><p>Git và kết nối Internet để cài thư viện.</p></li>
+</ul>
+<p>CI hiện dùng Python 3.11; khuyến nghị dùng cùng phiên bản.</p>
+</section>
+<section id="clone">
+<h3>1. Clone<a class="headerlink" href="#clone" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/hdwc-151/ML.git
+<span class="nb">cd</span><span class="w"> </span>ML
+</pre></div>
+</div>
+</section>
+<section id="tao-moi-truong">
+<h3>2. Tạo môi trường<a class="headerlink" href="#tao-moi-truong" title="Link to this heading">#</a></h3>
+<p><strong>Conda:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>ml-from-scratch<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.11<span class="w"> </span>-y
+conda<span class="w"> </span>activate<span class="w"> </span>ml-from-scratch
+</pre></div>
+</div>
+<p><strong>Hoặc venv:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="c1"># Windows PowerShell</span>
+.venv<span class="se">\S</span>cripts<span class="se">\A</span>ctivate.ps1
+<span class="c1"># macOS/Linux</span>
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</pre></div>
+</div>
+</section>
+<section id="cai-dat">
+<h3>3. Cài đặt<a class="headerlink" href="#cai-dat" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<p>Metadata khai báo NumPy, Matplotlib, scikit-learn; requirements bổ sung Jupyter Book. Dependency chưa được khóa phiên bản đầy đủ, nên chưa đảm bảo tái lập tuyệt đối.</p>
+</section>
+<section id="chay-notebook">
+<h3>4. Chạy notebook<a class="headerlink" href="#chay-notebook" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>notebook
+</pre></div>
+</div>
+<p>Mở notebook trong thư mục algorithms/notebooks. Nếu dùng JupyterLab:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>jupyterlab
+jupyter<span class="w"> </span>lab
+</pre></div>
+</div>
+</section>
+<section id="kiem-tra-utility">
+<h3>5. Kiểm tra utility<a class="headerlink" href="#kiem-tra-utility" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">utils</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">utils</span><span class="o">.</span><span class="n">__all__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Các tiện ích hiện cung cấp một số hàm activation, loss, metric, khoảng cách và preprocessing. Xem <a class="reference download internal" download="" href="_downloads/1b1db9675941fe9556efc462ceaeb554/__init__.py"><span class="xref download myst">utils/<strong>init</strong>.py</span></a> và từng module để biết API chính xác.</p>
+</section>
+</section>
+<section id="tai-lap-va-kiem-chung">
+<h2>Tái lập và kiểm chứng<a class="headerlink" href="#tai-lap-va-kiem-chung" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Chạy notebook theo thứ tự trong kernel mới.</p></li>
+<li><p>Ghi phiên bản thư viện, random seed và nguồn dữ liệu khi phù hợp.</p></li>
+<li><p>Chia dữ liệu trước khi fit preprocessing; chỉ fit transform trên tập train.</p></li>
+<li><p>Kiểm tra shape, ổn định số, trường hợp biên và hội tụ.</p></li>
+<li><p>So sánh với triển khai độc lập khi giả định và dung sai tương thích.</p></li>
+<li><p>Không commit dữ liệu lớn, checkpoint, credential hoặc file môi trường cá nhân.</p></li>
+</ul>
+<p><strong>Khoảng trống:</strong> Chưa có bộ automated test toàn diện và environment lockfile đầy đủ. Cài package thành công không chứng minh thuật toán đúng hay notebook tái lập.</p>
+</section>
+<section id="dong-gop">
+<h2>Đóng góp<a class="headerlink" href="#dong-gop" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Tạo nhánh riêng cho thay đổi có phạm vi rõ.</p></li>
+<li><p>Giữ diff gọn, giải thích mục đích và cơ sở toán học.</p></li>
+<li><p>Chạy notebook liên quan từ kernel sạch, kiểm thử utility đã đổi.</p></li>
+<li><p>Mô tả tác động, giả định và giới hạn trong pull request.</p></li>
+</ol>
+<p>Smoke checks:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>check
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import utils; print('utils import OK')"</span>
+</pre></div>
+</div>
+<p>Đây chỉ là kiểm tra cơ bản, không thay thế unit test hay chạy notebook.</p>
+</section>
+<section id="trien-khai-sach">
+<h2>Triển khai sách<a class="headerlink" href="#trien-khai-sach" title="Link to this heading">#</a></h2>
+<p>Workflow <a class="reference download internal" download="" href="_downloads/3680803a67ea02b9d6b8b783f532a8ce/deploy.yml"><span class="xref download myst">deploy.yml</span></a> build Jupyter Book và publish HTML lên GitHub Pages khi push vào main. Hãy kiểm tra TOC, kết quả build và trạng thái deploy.</p>
+</section>
+<section id="tai-lieu-tham-khao">
+<h2>Tài liệu tham khảo<a class="headerlink" href="#tai-lieu-tham-khao" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Christopher M. Bishop, <em>Pattern Recognition and Machine Learning</em>.</p></li>
+<li><p>Trevor Hastie, Robert Tibshirani, Jerome Friedman, <em>The Elements of Statistical Learning</em>.</p></li>
+<li><p>Ian Goodfellow, Yoshua Bengio, Aaron Courville, <em>Deep Learning</em>.</p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/user_guide.html">scikit-learn User Guide</a> · <a class="reference external" href="https://scikit-learn.org/stable/modules/classes.html">API</a>.</p></li>
+<li><p><a class="reference external" href="https://numpy.org/doc/">NumPy Documentation</a>.</p></li>
+</ul>
+<p>Khi dựa vào tài liệu, hãy dẫn rõ chương, ấn bản hoặc trang tham khảo.</p>
+</section>
+<section id="giay-phep">
+<h2>Giấy phép<a class="headerlink" href="#giay-phep" title="Link to this heading">#</a></h2>
+<p>Repository hiện <strong>chưa có file LICENSE</strong>. Khi chưa có license, quyền tái sử dụng, phân phối lại và đóng góp mã chưa được cấp phép rõ ràng. Hãy bổ sung license phù hợp trước khi giới thiệu dự án là phần mềm mở có thể tái sử dụng.</p>
+<hr class="docutils" />
+<p>Được duy trì bởi <a class="reference external" href="https://github.com/hdwc-151">hdwc-151</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kham-pha">Khám phá</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#phuong-phap-hoc">Phương pháp học</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lo-trinh-noi-dung">Lộ trình nội dung</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cau-truc-repository">Cấu trúc repository</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bat-dau">Bắt đầu</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yeu-cau">Yêu cầu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clone">1. Clone</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tao-moi-truong">2. Tạo môi trường</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cai-dat">3. Cài đặt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chay-notebook">4. Chạy notebook</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kiem-tra-utility">5. Kiểm tra utility</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tai-lap-va-kiem-chung">Tái lập và kiểm chứng</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dong-gop">Đóng góp</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trien-khai-sach">Triển khai sách</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tai-lieu-tham-khao">Tài liệu tham khảo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#giay-phep">Giấy phép</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hoàng Manhh Đức
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

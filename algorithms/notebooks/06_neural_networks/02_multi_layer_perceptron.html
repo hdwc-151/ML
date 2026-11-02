@@ -1,0 +1,884 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Mạng Nơ-ron Đa tầng (Multi-Layer Perceptron - MLP) &#8212; Machine Learning From Scratch</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'algorithms/notebooks/06_neural_networks/02_multi_layer_perceptron';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Bộ Tối Ưu Hóa (Optimizers): Từ SGD đến Adam" href="03_optimizers_momentum_adam.html" />
+    <link rel="prev" title="Đồ thị tính toán (Computational Graph) &amp; Lan truyền ngược (Backpropagation)" href="01_computational_graph_backprop.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="https://raw.githubusercontent.com/jupyter/design/master/logos/circle-color/circle-color.png" class="logo__image only-light" alt="Machine Learning From Scratch - Home"/>
+    <img src="https://raw.githubusercontent.com/jupyter/design/master/logos/circle-color/circle-color.png" class="logo__image only-dark pst-js-only" alt="Machine Learning From Scratch - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../intro.html">
+                    Learn Machine Learning from scratch
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 0: Nền tảng toán học &amp; Tiện ích</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_foundations/01_linear_algebra_calculus.html">Đại số Tuyến tính &amp; Giải tích (Linear Algebra &amp; Calculus)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_foundations/02_probability_mle_map.html">Xác suất, MLE và MAP (Probability, Maximum Likelihood &amp; A Posteriori)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 1: Học có giám sát - Hồi quy (Regression)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_regression/01_linear_regression_normal_equation.html">Hồi quy tuyến tính với Phương trình chuẩn (Normal Equation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_regression/02_linear_regression_gradient_descent.html">Hồi quy tuyến tính với Gradient Descent (GD)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_regression/03_polynomial_regression.html">Hồi quy Đa thức (Polynomial Regression)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_regression/04_ridge_lasso_elasticnet.html">Khắc phục Overfitting bằng Regularization (Ridge &amp; Lasso)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 2: Học có giám sát - Phân loại (Classification)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_classification/01_perceptron_learning_algorithm.html">Thuật toán học Perceptron (Perceptron Learning Algorithm - PLA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_classification/02_logistic_regression.html">Hồi quy Logistic (Logistic Regression)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_classification/04_support_vector_machines.html">Support Vector Machines (SVM) - Phân loại biên mềm (Soft Margin)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 3: Thuật toán thực thể &amp; Xác suất (Instance &amp; Bayes)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_instance_bayes/01_k_nearest_neighbors.html">K-Nearest Neighbors (K-NN) Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_instance_bayes/02_naive_bayes_gaussian_multinomial.html">Định lý Bayes &amp; Naive Bayes (Gaussian)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 4: Cây quyết định &amp; Học kết hợp (Ensembles)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_trees_ensembles/01_decision_trees.html">Cây Quyết Định (Decision Tree - Thuật toán CART)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_trees_ensembles/02_random_forest.html">Random Forest (Rừng ngẫu nhiên - Thuật toán Ensemble)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_trees_ensembles/03_adaboost_gradient_boosting.html">Học kết hợp tuần tự (Boosting: AdaBoost &amp; Gradient Boosting)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 5: Học không giám sát (Unsupervised Learning)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_unsupervised/01_k_means_clustering.html">Phân cụm K-Means (K-Means Clustering)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_unsupervised/02_hierarchical_clustering_dbscan.html">Phân cụm dựa trên mật độ (DBSCAN) &amp; Phân cụm phân cấp (Hierarchical)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_unsupervised/03_pca_svd_dimensionality_reduction.html">Phân tích Thành phần Chính (PCA) &amp; Phân rã Giá trị Đặc dị (SVD)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_unsupervised/04_gaussian_mixture_models_em.html">Mô hình Hỗn hợp Gauss (GMM) &amp; Thuật toán Kỳ vọng - Cực đại (EM)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Phần 6: Mạng Neuron &amp; Bộ tối ưu hóa (Neural Networks)</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_computational_graph_backprop.html">Đồ thị tính toán (Computational Graph) &amp; Lan truyền ngược (Backpropagation)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Mạng Nơ-ron Đa tầng (Multi-Layer Perceptron - MLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_optimizers_momentum_adam.html">Bộ Tối Ưu Hóa (Optimizers): Từ SGD đến Adam</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/hdwc-151/ML" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/hdwc-151/ML/edit/main/./algorithms/notebooks/06_neural_networks/02_multi_layer_perceptron.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/hdwc-151/ML/issues/new?title=Issue%20on%20page%20%2Falgorithms/notebooks/06_neural_networks/02_multi_layer_perceptron.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/algorithms/notebooks/06_neural_networks/02_multi_layer_perceptron.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Mạng Nơ-ron Đa tầng (Multi-Layer Perceptron - MLP)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="mang-no-ron-da-tang-multi-layer-perceptron-mlp">
+<h1>Mạng Nơ-ron Đa tầng (Multi-Layer Perceptron - MLP)<a class="headerlink" href="#mang-no-ron-da-tang-multi-layer-perceptron-mlp" title="Link to this heading">#</a></h1>
+<p>Mạng Nơ-ron là một hệ thống tính toán lấy cảm hứng từ cấu trúc não bộ, bao gồm nhiều lớp các “tế bào” (Neurons) liên kết với nhau.</p>
+<p><strong>1. Cấu trúc MLP:</strong></p>
+<ul class="simple">
+<li><p><strong>Lớp đầu vào (Input Layer):</strong> Tiếp nhận đặc trưng của dữ liệu (ví dụ: tọa độ x, y).</p></li>
+<li><p><strong>Lớp ẩn (Hidden Layers):</strong> Nơi diễn ra các biến đổi phi tuyến. Mỗi Nơ-ron trong lớp này tính tổng trọng số của tất cả các tín hiệu từ lớp trước, cộng với một độ lệch (bias), và đi qua hàm kích hoạt (ReLU, Tanh).
+$<span class="math notranslate nohighlight">\(a_j = \text{ReLU}\left(\sum_{i} w_{ij} x_i + b_j\right)\)</span>$</p></li>
+<li><p><strong>Lớp đầu ra (Output Layer):</strong> Chuyển đổi tín hiệu cuối cùng thành kết quả dự đoán.</p></li>
+</ul>
+<p><strong>2. Huấn luyện bằng SGD (Stochastic Gradient Descent):</strong>
+Quá trình huấn luyện mạng trải qua một vòng lặp lặp đi lặp lại:</p>
+<ol class="arabic simple">
+<li><p><strong>Forward Pass:</strong> Đưa dữ liệu qua mạng để lấy dự đoán.</p></li>
+<li><p><strong>Tính Loss:</strong> Đo lường sai số giữa dự đoán và nhãn thực tế (ví dụ: Mean Squared Error - MSE).</p></li>
+<li><p><strong>Zero Gradients:</strong> Xóa sạch các đạo hàm (gradient) từ bước trước.</p></li>
+<li><p><strong>Backward Pass:</strong> Gọi <code class="docutils literal notranslate"><span class="pre">loss.backward()</span></code> để tự động tính đạo hàm của hàm Loss theo từng trọng số <span class="math notranslate nohighlight">\(w\)</span> và <span class="math notranslate nohighlight">\(b\)</span> thông qua Autograd Engine.</p></li>
+<li><p><strong>Cập nhật tham số (Update):</strong> Dịch chuyển trọng số đi ngược hướng gradient để giảm Loss.
+$<span class="math notranslate nohighlight">\(w = w - \text{learning\_rate} \times \frac{\partial Loss}{\partial w}\)</span>$</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># 1. Nâng cấp Value Class (Bổ sung phép trừ và lũy thừa để tính Loss)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Value</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">_children</span><span class="o">=</span><span class="p">(),</span> <span class="n">_op</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">''</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_backward</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prev</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">_children</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_op</span> <span class="o">=</span> <span class="n">_op</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="n">other</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Value</span><span class="p">)</span> <span class="k">else</span> <span class="n">Value</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">Value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">),</span> <span class="s1">'+'</span><span class="p">)</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_backward</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">+=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">out</span><span class="o">.</span><span class="n">grad</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">grad</span> <span class="o">+=</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">out</span><span class="o">.</span><span class="n">grad</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">_backward</span> <span class="o">=</span> <span class="n">_backward</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="n">other</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Value</span><span class="p">)</span> <span class="k">else</span> <span class="n">Value</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">Value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">),</span> <span class="s1">'*'</span><span class="p">)</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_backward</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="n">out</span><span class="o">.</span><span class="n">grad</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">grad</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="n">out</span><span class="o">.</span><span class="n">grad</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">_backward</span> <span class="o">=</span> <span class="n">_backward</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)),</span> <span class="s2">"Chỉ hỗ trợ lũy thừa với số thực/nguyên"</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">Value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">**</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">,),</span> <span class="sa">f</span><span class="s1">'**</span><span class="si">{</span><span class="n">other</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_backward</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">+=</span> <span class="p">(</span><span class="n">other</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">**</span> <span class="p">(</span><span class="n">other</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span> <span class="o">*</span> <span class="n">out</span><span class="o">.</span><span class="n">grad</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">_backward</span> <span class="o">=</span> <span class="n">_backward</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">relu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">Value</span><span class="p">(</span><span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">,),</span> <span class="s1">'ReLU'</span><span class="p">)</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_backward</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">+=</span> <span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">data</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">out</span><span class="o">.</span><span class="n">grad</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">_backward</span> <span class="o">=</span> <span class="n">_backward</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">other</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span> <span class="o">+</span> <span class="n">other</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span> <span class="o">*</span> <span class="n">other</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">topo</span><span class="p">,</span> <span class="n">visited</span> <span class="o">=</span> <span class="p">[],</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">build_topo</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+                <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">_prev</span><span class="p">:</span> <span class="n">build_topo</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+                <span class="n">topo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">build_topo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">topo</span><span class="p">):</span> <span class="n">node</span><span class="o">.</span><span class="n">_backward</span><span class="p">()</span>
+
+<span class="c1"># 2. Xây dựng Kiến trúc Mạng Nơ-ron</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Module</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">zero_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="p">[]</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Neuron</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nin</span><span class="p">,</span> <span class="n">nonlin</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="c1"># Khởi tạo trọng số ngẫu nhiên từ -1 đến 1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="n">Value</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nin</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">Value</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nonlin</span> <span class="o">=</span> <span class="n">nonlin</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># Tính Tích vô hướng (Dot product): w*x + b</span>
+        <span class="n">act</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">wi</span> <span class="o">*</span> <span class="n">xi</span> <span class="k">for</span> <span class="n">wi</span><span class="p">,</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">act</span><span class="o">.</span><span class="n">relu</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nonlin</span> <span class="k">else</span> <span class="n">act</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">]</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Layer</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nin</span><span class="p">,</span> <span class="n">nout</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">neurons</span> <span class="o">=</span> <span class="p">[</span><span class="n">Neuron</span><span class="p">(</span><span class="n">nin</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nout</span><span class="p">)]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">outs</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">neurons</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">outs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">outs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">outs</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">neurons</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">n</span><span class="o">.</span><span class="n">parameters</span><span class="p">()]</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MLP</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nin</span><span class="p">,</span> <span class="n">nouts</span><span class="p">):</span>
+        <span class="n">sz</span> <span class="o">=</span> <span class="p">[</span><span class="n">nin</span><span class="p">]</span> <span class="o">+</span> <span class="n">nouts</span>
+        <span class="c1"># Các lớp ẩn dùng hàm phi tuyến ReLU, Lớp cuối cùng trả về giá trị tuyến tính</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="n">Layer</span><span class="p">(</span><span class="n">sz</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sz</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">nonlin</span><span class="o">=</span><span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nouts</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nouts</span><span class="p">))]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">parameters</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_moons</span>
+
+<span class="c1"># 1. Sinh dữ liệu phi tuyến (Hai hình bán nguyệt lồng nhau)</span>
+<span class="c1"># Dùng bộ dữ liệu nhỏ (60 mẫu) vì Autograd Scratch chạy bằng Python thuần khá chậm</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_moons</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="c1"># Đổi nhãn từ {0, 1} thành {-1, 1} để phù hợp với loss function (Hinge/MSE style)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span> 
+
+<span class="c1"># 2. Khởi tạo Mạng Nơ-ron: 2 Input -&gt; Lớp ẩn 16 -&gt; Lớp ẩn 16 -&gt; 1 Output</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Tổng số tham số của mô hình: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 3. Vòng lặp Huấn luyện (Training Loop)</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.05</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="c1"># a. Forward pass</span>
+    <span class="n">ypred</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">]</span>
+    
+    <span class="c1"># b. Tính hàm Loss (Mean Squared Error - MSE)</span>
+    <span class="c1"># L = trung bình của tổng (y_pred - y_true)^2</span>
+    <span class="n">losses</span> <span class="o">=</span> <span class="p">[(</span><span class="n">yout</span> <span class="o">-</span> <span class="n">ygt</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">yout</span><span class="p">,</span> <span class="n">ygt</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ypred</span><span class="p">,</span> <span class="n">y</span><span class="p">)]</span>
+    <span class="n">total_loss</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">losses</span><span class="p">))</span>
+    
+    <span class="c1"># c. Zero gradients</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    
+    <span class="c1"># d. Backward pass (Phép màu của Autograd nằm ở đây)</span>
+    <span class="n">total_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    
+    <span class="c1"># e. Cập nhật tham số (SGD Update)</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">data</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span>
+        
+    <span class="k">if</span> <span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Epoch </span><span class="si">{</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2"> | Loss: </span><span class="si">{</span><span class="n">total_loss</span><span class="o">.</span><span class="n">data</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 4. Trực quan hóa Decision Boundary</span>
+<span class="c1"># Giảm độ phân giải meshgrid (0.2 thay vì 0.02) để biểu đồ render nhanh hơn</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">h</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.5</span>
+<span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.5</span>
+<span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+
+<span class="n">X_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span>
+<span class="c1"># Dự đoán trên toàn bộ lưới không gian</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X_mesh</span><span class="p">])</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">Z</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'coolwarm'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'coolwarm'</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">'k'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"MLP (Scratch): Ranh giới phân loại bẻ cong nhờ các Lớp Ẩn (Hidden Layers)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"X1"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"X2"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tổng số tham số của mô hình: 337
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch  10 | Loss: 0.3588
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch  20 | Loss: 0.3091
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch  30 | Loss: 0.2771
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch  40 | Loss: 0.2564
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch  50 | Loss: 0.2369
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch  60 | Loss: 0.2208
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch  70 | Loss: 0.2057
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch  80 | Loss: 0.1912
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch  90 | Loss: 0.1746
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 100 | Loss: 0.1590
+</pre></div>
+</div>
+<img alt="../../../_images/96552165f9ba0e9223a36212a03a7826f6538298505c36406acfc05466a9926c.png" src="../../../_images/96552165f9ba0e9223a36212a03a7826f6538298505c36406acfc05466a9926c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_neural_net_architecture_fixed</span><span class="p">(</span><span class="n">layer_sizes</span><span class="p">):</span>
+    <span class="c1"># Set tỷ lệ khung hình thành 10:8 (thay vì 14:8) để cho các lớp sát nhau</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'off'</span><span class="p">)</span>
+    
+    <span class="n">n_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_sizes</span><span class="p">)</span>
+    <span class="n">max_neurons</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">layer_sizes</span><span class="p">)</span>
+    
+    <span class="c1"># Thiết lập khoảng cách thu phóng tĩnh (x: chiều ngang, y: chiều dọc)</span>
+    <span class="n">x_spacing</span> <span class="o">=</span> <span class="mf">1.0</span> 
+    <span class="n">y_spacing</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="c1"># 1. Tính toán tọa độ X, Y để dàn đều các Nơ-ron và căn giữa trục Y</span>
+    <span class="n">layer_coords</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n_neurons</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layer_sizes</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">x_spacing</span>
+        <span class="n">y_start</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_neurons</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">y_spacing</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">y_coords</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_start</span> <span class="o">-</span> <span class="n">j</span> <span class="o">*</span> <span class="n">y_spacing</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_neurons</span><span class="p">)]</span>
+        <span class="n">layer_coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="n">x</span><span class="p">]</span><span class="o">*</span><span class="n">n_neurons</span><span class="p">,</span> <span class="n">y_coords</span><span class="p">)))</span>
+
+    <span class="c1"># 2. Vẽ các đường liên kết Trọng số (Weights)</span>
+    <span class="c1"># Đặt zorder=1 và alpha=0.5 để đường line chìm xuống dưới, tạo sự liền mạch</span>
+    <span class="c1"># Tăng độ đậm (linewidth) và độ rõ (alpha) của các đường kết nối</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_layers</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">coord1</span> <span class="ow">in</span> <span class="n">layer_coords</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">coord2</span> <span class="ow">in</span> <span class="n">layer_coords</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">coord1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord2</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">coord1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">coord2</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> 
+                        <span class="n">c</span><span class="o">=</span><span class="s1">'#adb5bd'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># 3. Vẽ các khối Nơ-ron (Neurons)</span>
+    <span class="c1"># Phối màu hiện đại (Input: Xanh, Hidden: Cam, Output: Xanh lục)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'#d0ebff'</span><span class="p">,</span> <span class="s1">'#ffe8cc'</span><span class="p">,</span> <span class="s1">'#ffe8cc'</span><span class="p">,</span> <span class="s1">'#d1f2eb'</span><span class="p">]</span>
+    <span class="n">edge_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'#1864ab'</span><span class="p">,</span> <span class="s1">'#e67700'</span><span class="p">,</span> <span class="s1">'#e67700'</span><span class="p">,</span> <span class="s1">'#117a65'</span><span class="p">]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Input Layer</span><span class="se">\n</span><span class="s1">(2 Nodes)'</span><span class="p">,</span> <span class="s1">'Hidden Layer 1</span><span class="se">\n</span><span class="s1">(16 Nodes)'</span><span class="p">,</span> 
+              <span class="s1">'Hidden Layer 2</span><span class="se">\n</span><span class="s1">(16 Nodes)'</span><span class="p">,</span> <span class="s1">'Output Layer</span><span class="se">\n</span><span class="s1">(1 Node)'</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">coords</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layer_coords</span><span class="p">):</span>
+        <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">coords</span><span class="p">)</span>
+        <span class="c1"># Tăng kích thước node lên 1200</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">edgecolors</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
+                   <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># Tiêu đề cho từng Layer</span>
+        <span class="c1"># Đẩy nhãn của layer lên cao hẳn so với node trên cùng</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">x_spacing</span><span class="p">,</span> <span class="p">(</span><span class="n">max_neurons</span> <span class="o">*</span> <span class="n">y_spacing</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.2</span><span class="p">,</span> <span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
+                <span class="n">ha</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">'bottom'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'#495057'</span><span class="p">)</span>
+
+    <span class="c1"># BỔ SUNG: Nới rộng trục Y lên trên thêm 4 đơn vị để có không gian cho các Nhãn (Labels)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">bottom</span><span class="o">=-</span><span class="p">(</span><span class="n">max_neurons</span> <span class="o">*</span> <span class="n">y_spacing</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="p">(</span><span class="n">max_neurons</span> <span class="o">*</span> <span class="n">y_spacing</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># Dùng pad=40 để đẩy tiêu đề tách biệt hoàn toàn khỏi đồ thị</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Kiến trúc Mạng Nơ-ron: Khối MLP 2-16-16-1"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">'bold'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Kích hoạt hàm trực quan hóa với kiến trúc của mô hình hiện tại</span>
+<span class="n">draw_neural_net_architecture_fixed</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/b87957b59341e957f11c2728d87d05ca701b069e0a92862032857ffbbd91b13b.png" src="../../../_images/b87957b59341e957f11c2728d87d05ca701b069e0a92862032857ffbbd91b13b.png" />
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./algorithms/notebooks/06_neural_networks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_computational_graph_backprop.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Đồ thị tính toán (Computational Graph) &amp; Lan truyền ngược (Backpropagation)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03_optimizers_momentum_adam.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Bộ Tối Ưu Hóa (Optimizers): Từ SGD đến Adam</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hoàng Manhh Đức
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
